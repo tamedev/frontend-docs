@@ -1,5 +1,13 @@
 # Unique header generation
 require './lib/unique_head.rb'
+require 'rubygems'
+require 'middleman/rack'
+
+protected_middleman = Rack::Auth::Basic.new(Middleman.server) do |username, password|
+  [username, password] == ['theuser', 'thepassword']
+end
+
+run protected_middleman
 
 # Markdown
 set :markdown_engine, :redcarpet
